@@ -1,27 +1,28 @@
 #!/usr/bin/python3
 """ Cmd line entry point """
-import models
-from models import storage
-from models.base_model import BaseModel
 import cmd
+from cmd import Cmd
 
 class HBNBCommand(cmd.Cmd):
     """ Cmd line interpreter """
     prompt = "(hbnb) "
 
+    def do_exit(self, args):
+        """ EOF implementation """
+        return True 
+    
+    def emptyline(self):
+        """ empty implementation """
+        if self.lastcmd:
+            self.lastcmd = ""
+            return self.onecmd('\n') 
+
     def do_quit(self, args):
-        """ quitting implementation """
+        """Quit command to exit the program 
+        """
         raise SystemExit
 
-    def do_EOF(self, args):
-        """ EOF implementation """
-        return True
-  
-    def emptyline(self, args):
-        """ empty implementation """
-            pass
+    do_EOF = do_exit
 
-    HBNBCommand().cmdloop():
-        """ infinite """
-
-           
+if __name__ == '__main__':
+    HBNBCommand().cmdloop()
