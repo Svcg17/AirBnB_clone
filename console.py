@@ -111,6 +111,9 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
 
     def _int(self, stri):
+        """
+        Returns true if string can be casted to int
+        """
         try:
             int(stri)
             return True
@@ -118,6 +121,9 @@ class HBNBCommand(cmd.Cmd):
             return False
 
     def _float(self, stri):
+        """
+        Returns true if srting can be casted to float
+        """
         try:
             float(stri)
             return True
@@ -153,9 +159,5 @@ class HBNBCommand(cmd.Cmd):
         except ValueError:
             print("** class doesn't exist **")
 
-try:
-    if __name__ == '__main__':
-        HBNBCommand().cmdloop()
-except KeyboardInterrupt:
-    print()
-    sys.exit(0)
+if __name__ == '__main__':
+    HBNBCommand().cmdloop()
