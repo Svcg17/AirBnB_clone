@@ -4,6 +4,7 @@ import unittest
 import sys
 import os
 import json
+import datetime
 from io import StringIO
 from datetime import datetime
 from models.base_model import BaseModel
@@ -29,6 +30,9 @@ class Test_Base_Model(unittest.TestCase):
         b.my_num = 87
         kwargs = {'lastname': "Sneha", 'key': 1234}
         c = BaseModel(**kwargs)
+        self.assertTrue(hasattr(c, 'lastname'))
+        self.assertTrue(hasattr(c, 'key'))
+        self.assertEqual(c.lastname, "Sneha")
         self.assertTrue(type(b), BaseModel)
         kwargss = {}
         d = BaseModel(kwargss)
@@ -38,12 +42,22 @@ class Test_Base_Model(unittest.TestCase):
         self.assertTrue(hasattr(b, "name"))
         self.assertTrue(hasattr(b, "my_num"))
         self.assertTrue(hasattr(b, "id"))
+        self.assertTrue(type(b.id), str)
+        self.assertTrue(type(b.created_at), datetime)
+        self.assertTrue(type(b.updated_at), datetime)
         self.assertTrue(b.name, "Holberton\n")
         self.assertTrue(hasattr(b, "updated_at"))
         self.assertTrue(hasattr(b, "created_at"))
         self.assertEqual(outvar.getvalue(), "Holberton\n87\n")
         json_model = b.to_dict()
         json_model = b.save()
+
+    def test_str_print(self):
+        """Testing __str__ type
+        """
+        b = BaseModel()
+        stringg = b.__str__()
+        self.assertTrue(type(stringg), str)
 
     def test_attr(self):
         """Testing for attributes of new instances
@@ -96,6 +110,26 @@ class Test_Base_Model(unittest.TestCase):
         time_diff_two = c.created_at - c.updated_at
         self.assertTrue(abs(time_diff_two.total_seconds()) < 0.01)
 
+    def test_Diff_time(self):
+        """Testting for time difference
+        """
+        b = BaseModel()
+        oldttime = b.updated_at
+        b.save()
+        self.assertTrue(b.updated_at != oldttime)
+
+    def test_to_dict(self):
+        """Testing to_dict()
+        """
+        b = BaseModel()
+        dd = b.to_dict()
+        self.assertTrue(type(dd), dict)
+        self.assertTrue(type(dd[id]), str)
+        self.assertTrue(type(dd[created_at]), str)
+        self.assertTrue(type(dd[updated_at]), str)
+        assert '__class__' in dd
+        self.assertTrue(type(dd['__class__']), str)
+
     def test_format(self):
         """checks correct format"""
         self.assertRegex(self.a.__str__(), '\[.*\]\s+\(.*\)\s+\{.*\}')
@@ -104,6 +138,12 @@ class Test_Base_Model(unittest.TestCase):
         """test to_dict"""
         self.assertIsInstance(self.a, BaseModel)
         self.assertIsInstance(self.b, BaseModel)
+
+    def test_id_uniqueness(self):
+        """testing uniqueness of id
+        """
+        lista = [BaseModel().id for i in range(1000)]
+        len(set(lista)) == len(lista)
 
     @classmethod
     def tearDown(self):
