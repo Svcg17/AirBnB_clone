@@ -1,18 +1,28 @@
 #!/usr/bin/python3
-""" Cmd line entry point """
+""" Command line entry point
+"""
 import cmd
+import sys
 import models
 import json
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
+from models.user import User
+from models.city import City
+from models.state import State
+from models.place import Place
+from models.review import Review
+from models.amenity import Amenity
 
 
 class HBNBCommand(cmd.Cmd):
-    """ Cmd line interpreter """
+    """ Cmd line interpreter
+    """
     prompt = "(hbnb) "
 
     def emptyline(self):
-        """ empty implementation """
+        """ emptyline overwrite
+        """
         if self.lastcmd:
             self.lastcmd = ""
             return self.onecmd('\n')
@@ -22,17 +32,21 @@ class HBNBCommand(cmd.Cmd):
         """
         return True
 
-    do_EOF = do_quit
+    def do_EOF(self, args):
+        """Quit command to exit the program
+        """
+        print()
+        return True
 
     def do_create(self, args=None):
-        """Creates a new instance of BaseModel, s
-        aves it (to the JSON file) and prints the id"""
+        """Creates a new instance of BaseModel, saves
+        it (to the JSON file) and prints the id"""
         try:
-            if not args:
+            newinstance = args.split()
+            if not args or len(newinstance) == 0:
                 print("** class name missing **")
             else:
-                newinstance = args.split()
-                newinstance = eval(args)()
+                newinstance = eval(newinstance[0])()
                 newinstance.save()
                 print(newinstance.id)
         except NameError:
@@ -81,14 +95,18 @@ class HBNBCommand(cmd.Cmd):
         try:
             line = args.split()
             temp = []
-            for key in models.storage.all():
-                v = models.storage.all()[key]
-                classname = key.split(".")
-                if classname[0] == args or len(args) == 0:
+            if len(line) == 0:
+                for key in models.storage.all():
+                    v = models.storage.all()[key]
                     temp.append(str(v))
-                    print(temp)
-                else:
-                    print("** class doesn't exist **")
+                print(temp)
+            else:
+                for key in models.storage.all():
+                    v = models.storage.all()[key]
+                    classname = key.split(".")
+                    if classname[0] == args:
+                        temp.append(str(v))
+                print(temp)
         except NameError:
             print("** class doesn't exist **")
 
@@ -111,7 +129,7 @@ class HBNBCommand(cmd.Cmd):
         me and id by adding or updating attribute
         (save the change into the JSON file)."""
         try:
-            argz = args.split()
+            argz = args.split(" ", 3)
             if len(argz) == 0:
                 print("** class name missing **")
             elif len(argz) == 1:
@@ -135,6 +153,9 @@ class HBNBCommand(cmd.Cmd):
         except ValueError:
             print("** class doesn't exist **")
 
-
-if __name__ == '__main__':
-    HBNBCommand().cmdloop()
+try:
+    if __name__ == '__main__':
+        HBNBCommand().cmdloop()
+except KeyboardInterrupt:
+    print()
+    sys.exit(0)
