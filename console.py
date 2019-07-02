@@ -1,11 +1,18 @@
 #!/usr/bin/python3
-""" Cmd line entry point """
+""" Cmd line entry point
+"""
 import cmd
+import sys
 import models
 import json
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
 from models.user import User
+from models.city import City
+from models.state import State
+from models.place import Place
+from models.review import Review
+from models.amenity import Amenity
 
 
 class HBNBCommand(cmd.Cmd):
@@ -23,7 +30,11 @@ class HBNBCommand(cmd.Cmd):
         """
         return True
 
-    do_EOF = do_quit
+    def do_EOF(self, args):
+        """Quit command to exit the program
+        """
+        print()
+        return True
 
     def do_create(self, args=None):
         """Creates a new instance of BaseModel, s
@@ -33,9 +44,10 @@ class HBNBCommand(cmd.Cmd):
                 print("** class name missing **")
             else:
                 newinstance = args.split()
-                newinstance = eval(args)()
-                newinstance.save()
-                print(newinstance.id)
+                if len(newinstance) is 1:
+                    newinstance = eval(args)()
+                    newinstance.save()
+                    print(newinstance.id)
         except NameError:
             print("** class doesn't exist **")
 
@@ -82,14 +94,18 @@ class HBNBCommand(cmd.Cmd):
         try:
             line = args.split()
             temp = []
-            for key in models.storage.all():
-                v = models.storage.all()[key]
-                classname = key.split(".")
-                if classname[0] == args or len(args) == 0:
+            if len(line) == 0:
+                for key in models.storage.all():
+                    v = models.storage.all()[key]
                     temp.append(str(v))
-                    print(temp)
-                else:
-                    print("** class doesn't exist **")
+                print(temp)
+            else:
+                for key in models.storage.all():
+                    v = models.storage.all()[key]
+                    classname = key.split(".")
+                    if classname[0] == args:
+                        temp.append(str(v))
+                print(temp)
         except NameError:
             print("** class doesn't exist **")
 
@@ -136,6 +152,9 @@ class HBNBCommand(cmd.Cmd):
         except ValueError:
             print("** class doesn't exist **")
 
-
-if __name__ == '__main__':
-    HBNBCommand().cmdloop()
+try:
+    if __name__ == '__main__':
+        HBNBCommand().cmdloop()
+except KeyboardInterrupt:
+    print()
+    sys.exit(0)
