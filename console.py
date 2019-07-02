@@ -23,6 +23,15 @@ class HBNBCommand(cmd.Cmd):
     """
     prompt = "(hbnb) "
 
+    existing_cls = {
+            "BaseModel": BaseModel,
+            "User": User,
+            "Place": Place,
+            "City": City,
+            "Amenity": Amenity,
+            "Review": Review,
+            "State": State}
+
     def emptyline(self):
         """ emptyline overwrite
         """
@@ -95,23 +104,24 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, args=None):
         """Prints all string representation of all instances
         based or not on the class name"""
-        try:
-            line = args.split()
-            temp = []
-            if len(line) == 0:
-                for key in models.storage.all():
-                    v = models.storage.all()[key]
+        line = args.split()
+        temp = []
+        if len(line) is not 0 and line[0] not in self.existing_cls:
+            print("** class doesn't exist ** ")
+            return
+
+        if len(line) == 0:
+            for key in models.storage.all():
+                v = models.storage.all()[key]
+                temp.append(str(v))
+            print(temp)
+        else:
+            for key in models.storage.all():
+                v = models.storage.all()[key]
+                classname = key.split(".")
+                if classname[0] == args:
                     temp.append(str(v))
-                print(temp)
-            else:
-                for key in models.storage.all():
-                    v = models.storage.all()[key]
-                    classname = key.split(".")
-                    if classname[0] == args:
-                        temp.append(str(v))
-                print(temp)
-        except NameError:
-            print("** class doesn't exist **")
+            print(temp)
 
     def _int(self, stri):
         """
