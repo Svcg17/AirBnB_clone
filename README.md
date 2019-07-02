@@ -14,7 +14,7 @@ What you should learn from this project:
 * What is **kwargs and how to use it
 * How to handle named arguments in a function
 
----
+----------------------
 
 ### [0. README, AUTHORS](./README.md)
 * 
@@ -70,8 +70,10 @@ Also, we strongly encourage you to use branches and pull requests on Github - it
 ### [9. More classes!](./console.py)
 * Write all those classes that inherit from BaseModel:
 
+ State, City, Amenity, Place, & Review
 
----
+-----------------------
 
 ## Author
 * **Sofia Cheung** - [Svcg17](https://github.com/Svcg17)
+* **Kenneth Mensah** - [Ken-Mens](https://github.com/Ken-Mens)
