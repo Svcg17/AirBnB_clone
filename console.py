@@ -1,5 +1,8 @@
 #!/usr/bin/python3
-""" Command line entry point
+"""
+The console module
+Command line entry point
+
 """
 import cmd
 import sys
@@ -147,13 +150,14 @@ class HBNBCommand(cmd.Cmd):
             else:
                 objs = argz[0] + "." + argz[1]
                 if objs in models.storage.all():
-                    if self._int(argz[3]):
+                    """if self._int(argz[3]):
                         argz[3] = int(argz[3])
                     elif self._float(argz[3]):
                         argz[3] = float(argz[3])
-                    if type(argz[3]) == str:
-                        argz[3] = argz[3][1:-1]
+                    if type(argz[3]) == str:"""
+                    argz[3] = argz[3][1:-1]
                     setattr(models.storage.all()[objs], argz[2], argz[3])
+                    models.storage.save()
                 else:
                     print("** no instance found **")
         except ValueError:
