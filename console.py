@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" Cmd line entry point
+""" Command line entry point
 """
 import cmd
 import sys
@@ -16,11 +16,13 @@ from models.amenity import Amenity
 
 
 class HBNBCommand(cmd.Cmd):
-    """ Cmd line interpreter """
+    """ Cmd line interpreter
+    """
     prompt = "(hbnb) "
 
     def emptyline(self):
-        """ empty implementation """
+        """ emptyline overwrite
+        """
         if self.lastcmd:
             self.lastcmd = ""
             return self.onecmd('\n')
@@ -37,17 +39,16 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_create(self, args=None):
-        """Creates a new instance of BaseModel, s
-        aves it (to the JSON file) and prints the id"""
+        """Creates a new instance of BaseModel, saves
+        it (to the JSON file) and prints the id"""
         try:
-            if not args:
+            newinstance = args.split()
+            if not args or len(newinstance) == 0:
                 print("** class name missing **")
             else:
-                newinstance = args.split()
-                if len(newinstance) is 1:
-                    newinstance = eval(args)()
-                    newinstance.save()
-                    print(newinstance.id)
+                newinstance = eval(newinstance[0])()
+                newinstance.save()
+                print(newinstance.id)
         except NameError:
             print("** class doesn't exist **")
 
@@ -128,7 +129,7 @@ class HBNBCommand(cmd.Cmd):
         me and id by adding or updating attribute
         (save the change into the JSON file)."""
         try:
-            argz = args.split()
+            argz = args.split(" ", 3)
             if len(argz) == 0:
                 print("** class name missing **")
             elif len(argz) == 1:
