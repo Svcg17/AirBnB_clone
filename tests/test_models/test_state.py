@@ -5,6 +5,7 @@ Unitesting State
 import unittest
 from models.base_model import BaseModel
 from models.state import State
+from datetime import datetime
 
 
 class test_state(unittest.TestCase):
@@ -17,22 +18,29 @@ class test_state(unittest.TestCase):
         self.st.name = "HI"
         self.st.state_id = "CA"
 
-    def test_attr(self):
+    def test_self(self):
         """test attributes of State"""
-        self.assertTrue('name' in self.st.state_id.__dict__)
-        self.assertTrue('id' in self.st.__dict__)
-        self.assertTrue('created_at' in self.st.__dict__)
-        self.assertTrue('updated_at' in self.st.__dict__)
+        self.assertTrue(hasattr(State, "__str__"))
+        self.assertTrue(hasattr(State, "save"))
+        self.assertTrue(hasattr(State, "to_dict"))
+        self.assertTrue(hasattr(State, "name"))
 
     def test_string(self):
         """test if State is a string"""
-        self.assertEqual(type(self.st.name), str)
-        self.assertEqual(type(self.st.state_id), str)
+        ok = State()
+        self.assertEqual(type(ok.name), str)
+        self.assertEqual(type(ok.id), str)
+
+    def test_creat_update(self):
+        """test created at and updated at as well"""
+        ok = State()
+        self.assertEqual(datetime, type(ok.created_at))
+        self.assertEqual(datetime, type(ok.created_at))
 
     def test_save(self):
         """testing save method"""
         self.st.save()
-        self.assertThat(self.st.created_at, not (self.st.updated_at))
+        self.assertNotEqual(self.st.created_at, self.st.updated_at)
 
     @classmethod
     def tearDownClass(self):
