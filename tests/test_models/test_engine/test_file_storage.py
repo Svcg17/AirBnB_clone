@@ -92,15 +92,3 @@ class Test_File_Storage_Model(unittest.TestCase):
         b.new(BaseModel())
         b.save()
         self.assertTrue(path.isfile("file.json"))
-
-    def test_reload(self):
-        """Testing reload metthod
-        """
-        b = FileStorage()
-        c = BaseModel()
-        key = "BaseModel.{}".format(c.id)
-        b.new(BaseModel())
-        b.save()
-        b.reset_obj()
-        b.reload()
-        self.assertTrue(b.all()[key])

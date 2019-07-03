@@ -171,10 +171,21 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
 
     def default(self, line):
-        """default method if system doesn't recognize all command above"""
-        l = line.split(".")
-        if l[1] == "all()":
-            return self.do_all(l[0]) 
+        """Overwrite of the system not recognizing arguments"""
+        argz = line.split(".")
+        showw = argz[1]
+        show_w = showw[:4]
+        splitting = showw.split("\"")
+        counter = 0
+        if argz[1] == "all()":
+            return self.do_all(argz[0])
+        elif argz[1] == "count()":
+            for i in models.storage.all():
+                counter += 1
+            print(counter)
+        elif show_w == "show":
+            param = argz[0] + " " + splitting[1]
+            return self.do_show(param)
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
