@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import unittest
+from models.base_model import BaseModel
 from models.city import City
 """test for city"""
 
@@ -31,7 +32,12 @@ class test_city(unittest.TestCase):
     def test_save(self):
         """testing save method"""
         self.cityy.save()
-        self.assertThat(self.cityy.created_at, not (self.cityy.updated_at))
+        self.assertNotEqual(self.cityy.created_at, not (self.cityy.updated_at))
+
+    def test_is_subclass(self):
+        """Tests to see if City is a subclass of BaseModel"""
+        ok = City()
+        self.assertEqual(issubclass(type(ok), BaseModel), True)
 
     @classmethod
     def tearDown(self):
