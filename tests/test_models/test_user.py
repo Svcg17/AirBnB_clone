@@ -26,6 +26,11 @@ class test_user(unittest.TestCase):
         """testing if subclass"""
         self.assertTrue(issubclass(self.foo.__class__, BaseModel), True)
 
+    def test_save(self):
+        """testing save method"""
+        self.foo.save()
+        self.assertThat(self.foo.created_at, not (self.foo.updated_at))
+
     def tearDown(self):
         """tearing it down by deleting self.foo"""
         del self.foo
