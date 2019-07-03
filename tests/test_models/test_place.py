@@ -5,6 +5,7 @@ module test for place
 import unittest
 from models.base_model import BaseModel
 from models.place import Place
+from datetime import datetime
 
 
 class Place(BaseModel):
@@ -17,18 +18,19 @@ class Place(BaseModel):
 
     def test_inst(self):
         """some tests for amenity"""
-        self.assertIsInstance(self.pl, Place)
-        self.assertIsInstance(self.pl.city_id, str)
-        self.assertIsInstance(self.pl.user_id, str)
-        self.assertIsInstance(self.pl.name, str)
-        self.assertIsInstance(self.pl.description, str)
-        self.assertIsInstance(self.pl.number_rooms, int)
-        self.assertIsInstance(self.pl.number_bathrooms, int)
-        self.assertIsInstance(self.pl.max_guest, int)
-        self.assertIsInstance(self.pl.price_by_night, int)
-        self.assertIsInstance(self.pl.latitude, float)
-        self.assertIsInstance(self.pl.longitude, float)
-        self.assertIsInstance(self.pl.amenity_ids, list)
+        ok = Place()
+        self.assertIsInstance(ok, Place)
+        self.assertIsInstance(ok.city_id, str)
+        self.assertIsInstance(ok.user_id, str)
+        self.assertIsInstance(ok.name, str)
+        self.assertIsInstance(ok.description, str)
+        self.assertIsInstance(ok.number_rooms, int)
+        self.assertIsInstance(ok.number_bathrooms, int)
+        self.assertIsInstance(ok.max_guest, int)
+        self.assertIsInstance(ok.price_by_night, int)
+        self.assertIsInstance(ok.latitude, float)
+        self.assertIsInstance(ok.longitude, float)
+        self.assertIsInstance(ok.amenity_ids, list)
 
     def test_has_attr(self):
         """test for attributes"""
@@ -56,9 +58,11 @@ class Place(BaseModel):
         self.pl.save()
         self.assertThat(self.pl.created_at, not (self.pl.updated_at))
 
-    def test_not_none(self):
-        """testing save method"""
-        assertIsNotNone(self.pl) 
+    def test_creat_and_update(self):
+        """ test created_at and updated at the same time"""
+        ok = Place()
+        self.assertEqual(datetime, type(ok.created_at))
+        self.assertEqual(datetime, type(ok.updated_at))
 
     @classmethod
     def tearDown(self):
