@@ -54,14 +54,13 @@ class TestAmenity(unittest.TestCase):
     def test_id(self):
         """ test id is correct """
         ok = Amenity()
-        var = Amenity(ok)
         self.assertEqual(str, type(ok.id))
-        self.assertEqual(type(var), Amenity)
+        self.assertEqual(type(ok), Amenity)
 
     def test_to_dict(self):
         """Test to_dict method"""
         ok = Amenity()
-        self.assertEqual(self.amen1.__class__.__name__, "Amenity")
+        self.assertEqual(ok.__class__.__name__, "Amenity")
         self.assertTrue(ok.to_dict()["created_at"], str)
         self.assertTrue(ok.to_dict()["updated_at"], str)
 

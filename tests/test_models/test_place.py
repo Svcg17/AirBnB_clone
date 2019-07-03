@@ -77,6 +77,12 @@ class Place(BaseModel):
         self.assertEqual(datetime, type(ok.created_at))
         self.assertEqual(datetime, type(ok.updated_at))
 
+    def test_id(self):
+        """ test id is correct"""
+        ok = Place()
+        self.assertEqual(str, type(ok.id))
+        self.assertEqual(type(ok), Place)
+
     @classmethod
     def tearDown(self):
         """deletes place"""

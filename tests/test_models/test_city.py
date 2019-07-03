@@ -42,9 +42,8 @@ class test_city(unittest.TestCase):
     def test_id(self):
         """ test id is correct """
         ok = City()
-        var = City(ok)
         self.assertEqual(str, type(ok.id))
-        self.assertEqual(type(var), City)
+        self.assertEqual(type(ok), City)
 
     def test_docs(self):
         """test that all is documented"""

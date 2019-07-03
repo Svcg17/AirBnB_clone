@@ -44,9 +44,8 @@ class test_user(unittest.TestCase):
     def test_id(self):
         """ test for valid id"""
         ok = User()
-        var = User(ok)
         self.assertEqual(str, type(ok.id))
-        self.assertEqual(type(var), User)
+        self.assertEqual(type(ok), User)
 
     def test_created_at(self):
         """ test created_at and update_at as well"""

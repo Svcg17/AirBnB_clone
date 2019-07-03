@@ -28,9 +28,8 @@ class test_state(unittest.TestCase):
     def test_id(self):
         """ test id is correct """
         ok = State()
-        var = State(ok)
         self.assertEqual(str, type(ok.id))
-        self.assertEqual(type(var), State)
+        self.assertEqual(type(ok), State)
 
     def test_string(self):
         """test if State is a string"""
