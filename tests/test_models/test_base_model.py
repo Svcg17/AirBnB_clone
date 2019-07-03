@@ -59,6 +59,13 @@ class Test_Base_Model(unittest.TestCase):
         stringg = b.__str__()
         self.assertTrue(type(stringg), str)
 
+    def test_str_print_more(self):
+        """Testing str output
+        """
+        b = BaseModel()
+        stirn = "[BaseModel] ({}) {}".format(b.id, b.__dict__)
+        self.assertEqual(b.__str__(), stirn)
+
     def test_attr(self):
         """Testing for attributes of new instances
         """
