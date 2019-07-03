@@ -107,19 +107,20 @@ class HBNBCommand(cmd.Cmd):
         if len(line) is not 0 and line[0] not in self.existing_cls:
             print("** class doesn't exist ** ")
             return
-
         if len(line) == 0:
             for key in models.storage.all():
                 v = models.storage.all()[key]
                 temp.append(str(v))
-            print(temp)
+            if temp:
+                print(temp)
         else:
             for key in models.storage.all():
                 v = models.storage.all()[key]
                 classname = key.split(".")
                 if classname[0] == args:
                     temp.append(str(v))
-            print(temp)
+            if temp:
+                print(temp)
 
     def _int(self, stri):
         """
@@ -164,11 +165,16 @@ class HBNBCommand(cmd.Cmd):
                 elif self._float(argz[3]):
                 argz[3] = float(argz[3])
                 if type(argz[3]) == str:"""
-                argz[3] = argz[3][1:-1]
                 setattr(models.storage.all()[objs], argz[2], argz[3])
                 models.storage.save()
             else:
                 print("** no instance found **")
+
+    def default(self, line):
+        """default method if system doesn't recognize all command above"""
+        l = line.split(".")
+        if l[1] == "all()":
+            return self.do_all(l[0]) 
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
