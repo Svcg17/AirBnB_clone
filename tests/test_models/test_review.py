@@ -5,7 +5,7 @@ Unitesting for review
 import unittest
 from models.review import Review
 from models.base_model import BaseModel
-
+from datetime import datetime
 
 class TestReview(unittest.TestCase):
 
@@ -28,22 +28,25 @@ class TestReview(unittest.TestCase):
 
     def test_string(self):
         """testing that it's a string"""
-        self.assertEqual(type(self.Joe.place_id), str)
-        self.assertEqual(type(self.Joe.user_id), str)
-        self.assertEqual(type(self.Joe.text), str)
+        ok = Review()
+        self.assertEqual(type(ok.place_id), str)
+        self.assertEqual(type(ok.user_id), str)
+        self.assertEqual(type(ok.text), str)
 
     def test_to_dict(self):
         """testing that to_dict method functions"""
         self.assertEqual('to_dict' in dir(self.Joe), True)
 
+    def test_creat_update(self):
+        """ test updated_at and updated_at """
+        ok = Review()
+        self.assertEqual(datetime, type(ok.created_at))
+        self.assertEqual(datetime, type(ok.updated_at))
+
     def test_save(self):
         """testing save method"""
         self.Joe.save()
-        self.assertThat(self.Joe.created_at, not (self.Joe.updated_at))
-
-   def test_not_none(self):
-       """testing save method"""
-       assertIsNotNone(self.Joe)
+        self.assertNotEqual(self.Joe.created_at, self.Joe.updated_at)
 
     @classmethod
     def tearDownClass(self):
