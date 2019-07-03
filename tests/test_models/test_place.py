@@ -51,6 +51,11 @@ class Place(BaseModel):
         """test to_dict function is working"""
         self.assertEqual('to_dict' in dir(self.pl), True)
 
+    def test_save(self):
+        """testing save method"""
+        self.pl.save()
+        self.assertThat(self.pl.created_at, not (self.pl.updated_at))
+
     @classmethod
     def tearDown(self):
         """deletes place"""

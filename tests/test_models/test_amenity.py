@@ -32,6 +32,11 @@ class Amenity(unittest.TestCase):
         """test if Amenity is a string"""
         self.assertEqual(type(self.mn.name), str)
 
+    def test_save(self):
+        """testing save method"""
+        self.mn.save()
+        self.assertThat(self.mn.created_at, not (self.mn.updated_at))
+
     @classmethod
     def tearDownClass(self):
         """Tearing it all down by deletion"""

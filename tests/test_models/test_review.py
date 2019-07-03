@@ -36,6 +36,11 @@ class TestReview(unittest.TestCase):
         """testing that to_dict method functions"""
         self.assertEqual('to_dict' in dir(self.Joe), True)
 
+    def test_save(self):
+        """testing save method"""
+        self.Joe.save()
+        self.assertThat(self.Joe.created_at, not (self.Joe.updated_at))
+
     @classmethod
     def tearDownClass(self):
         """deletes self.Joe"""
