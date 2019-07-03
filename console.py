@@ -67,39 +67,37 @@ class HBNBCommand(cmd.Cmd):
     def do_show(self, args=None):
         """Prints the string representation of an instance based
         on the class name and id. Ex: $ show BaseModel 1234-1234-1234"""
-        try:
-            line = args.split()
-            if len(line) == 0:
-                print("** class name missing **")
-            elif len(line) == 1:
-                print("** instance id missing **")
-            else:
-                instance = line[0] + "." + line[1]
-                if instance in models.storage.all():
-                    print(models.storage.all()[instance])
-                else:
-                    print("** no instance found **")
-        except NameError:
+        line = args.split()
+        if len(line) and line[0] not in self.existing_cls:
             print("** class doesn't exist **")
+        elif len(line) == 0:
+            print("** class name missing **")
+        elif len(line) == 1:
+            print("** instance id missing **")
+        else:
+            instance = line[0] + "." + line[1]
+            if instance in models.storage.all():
+                print(models.storage.all()[instance])
+            else:
+                print("** no instance found **")
 
     def do_destroy(self, args=None):
         """Deletes an instance based on the class name and id
         (save the change into the JSON file)."""
-        try:
-            line = args.split()
-            if len(line) == 0:
-                print("** class name missing **")
-            elif len(line) == 1:
-                print("** instance id missing **")
-            else:
-                instance = line[0] + "." + line[1]
-                if instance in models.storage.all():
-                    del models.storage.all()[instance]
-                    models.storage.save()
-                else:
-                    print("** no instance found **")
-        except NameError:
+        line = args.split()
+        if len(line) and line[0] not in self.existing_cls:
             print("** class doesn't exist **")
+        elif len(line) == 0:
+            print("** class name missing **")
+        elif len(line) == 1:
+            print("** instance id missing **")
+        else:
+            instance = line[0] + "." + line[1]
+            if instance in models.storage.all():
+                del models.storage.all()[instance]
+                models.storage.save()
+            else:
+                print("** no instance found **")
 
     def do_all(self, args=None):
         """Prints all string representation of all instances
@@ -147,31 +145,30 @@ class HBNBCommand(cmd.Cmd):
         """ Updates an instance based on the class na-
         me and id by adding or updating attribute
         (save the change into the JSON file)."""
-        try:
-            argz = args.split(" ", 3)
-            if len(argz) == 0:
-                print("** class name missing **")
-            elif len(argz) == 1:
-                print("** instance id missing **")
-            elif len(argz) == 2:
-                print("** attribute name missing **")
-            elif len(argz) == 3:
-                print("** value missing **")
-            else:
-                objs = argz[0] + "." + argz[1]
-                if objs in models.storage.all():
-                    """if self._int(argz[3]):
-                        argz[3] = int(argz[3])
-                    elif self._float(argz[3]):
-                        argz[3] = float(argz[3])
-                    if type(argz[3]) == str:"""
-                    argz[3] = argz[3][1:-1]
-                    setattr(models.storage.all()[objs], argz[2], argz[3])
-                    models.storage.save()
-                else:
-                    print("** no instance found **")
-        except ValueError:
+        argz = args.split(" ", 3)
+        if argz[0] and argz[0] not in self.existing_cls:
             print("** class doesn't exist **")
+        elif not args:
+            print("** class name missing **")
+        elif len(argz) == 1:
+            print("** instance id missing **")
+        elif len(argz) == 2:
+            print("** attribute name missing **")
+        elif len(argz) == 3:
+            print("** value missing **")
+        else:
+            objs = argz[0] + "." + argz[1]
+            if objs in models.storage.all():
+                """if self._int(argz[3]):
+                argz[3] = int(argz[3])
+                elif self._float(argz[3]):
+                argz[3] = float(argz[3])
+                if type(argz[3]) == str:"""
+                argz[3] = argz[3][1:-1]
+                setattr(models.storage.all()[objs], argz[2], argz[3])
+                models.storage.save()
+            else:
+                print("** no instance found **")
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
