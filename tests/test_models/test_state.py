@@ -35,7 +35,6 @@ class test_state(unittest.TestCase):
         """test created at and updated at as well"""
         ok = State()
         self.assertEqual(datetime, type(ok.created_at))
-        self.assertEqual(datetime, type(ok.created_at))
 
     def test_save(self):
         """testing save method"""

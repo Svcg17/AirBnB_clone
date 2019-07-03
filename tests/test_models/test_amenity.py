@@ -24,6 +24,7 @@ class TestAmenity(unittest.TestCase):
         self.assertTrue(hasattr(Amenity, "to_dict"))
         self.assertTrue(hasattr(Amenity, "name"))
         self.assertTrue(hasattr(Amenity, "save"))
+        self.assertTrue(hasattr(Amenity, "__class__"))
 
     def test_docs(self):
         """test that all is documented"""
@@ -53,19 +54,42 @@ class TestAmenity(unittest.TestCase):
     def test_id(self):
         """ test id is correct """
         ok = Amenity()
+        var = Amenity(ok)
         self.assertEqual(str, type(ok.id))
+        self.assertEqual(type(var), Amenity)
 
     def test_to_dict(self):
         """Test to_dict method"""
+        ok = Amenity()
         self.assertEqual(self.amen1.__class__.__name__, "Amenity")
-        self.assertIsInstance(self.amen1.to_dict()["created_at"], str)
-        self.assertIsInstance(self.amen1.to_dict()["updated_at"], str)
+        self.assertTrue(ok.to_dict()["created_at"], str)
+        self.assertTrue(ok.to_dict()["updated_at"], str)
 
     def test_created_at(self):
         """ test created_at and update_at as well """
         ok = Amenity()
         self.assertEqual(datetime, type(ok.created_at))
         self.assertEqual(datetime, type(ok.updated_at))
+
+    def test_dict_to(self):
+        """ test if dictionary"""
+        ok = Amenity()
+        var = ok.to_dict()
+        foo = Amenity(var)
+        self.assertEqual(type(var), dict)
+        self.assertTrue(hasattr(foo, "__class__"))
+        self.assertTrue(hasattr(foo, "__str__"))
+        self.assertTrue(hasattr(foo, "to_dict"))
+        self.assertTrue(hasattr(foo, "name"))
+        self.assertTrue(hasattr(foo, "save"))
+        self.assertTrue(hasattr(foo, "__class__"))
+
+    def test_prt_str(self):
+        """ test str output"""
+        ok = Amenity()
+        var = "[Amenity] ({}) {}".format(ok.id, ok.__dict__)
+        self.assertEqual(ok.__str__(), var)
+        self.assertEqual(type(var), str)
 
     @classmethod
     def tearDownClass(self):
