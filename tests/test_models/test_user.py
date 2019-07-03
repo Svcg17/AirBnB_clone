@@ -1,11 +1,13 @@
 #!/usr/bin/python3
 import unittest
 from models.user import User
+from models.base_model import BaseModel
 
 
 class test_user(unittest.TestCase):
     """Unitest user"""
 
+    @classmethod
     def setUp(self):
         """Setting up"""
         self.foo = User()
@@ -26,18 +28,20 @@ class test_user(unittest.TestCase):
         """testing if subclass"""
         self.assertTrue(issubclass(self.foo.__class__, BaseModel), True)
 
-    def test_save(self):
-        """testing save method"""
-        self.foo.save()
-        self.assertThat(self.foo.created_at, not (self.foo.updated_at))
+    def test_is_subclass(self):
+        """Tests to see if User is a subclass of BaseModel"""
+        ok = User()
+        self.assertEqual(issubclass(type(ok), BaseModel), True)
 
+    def test_id(self):
+        """ test for valid id"""
+        ok = User()
+        self.assertEqual(str, type(ok.id))
+
+    @classmethod
     def tearDown(self):
         """tearing it down by deleting self.foo"""
         del self.foo
-
-    def test_not_none(self):
-        """testing save method"""
-        assertIsNotNone(self.foo)
 
 if __name__ == "__main__":
     unittest.main()
