@@ -28,6 +28,11 @@ class test_city(unittest.TestCase):
         self.assertTrue('state_id' in self.cityy.__dict__)
         self.assertTrue('name' in self.cityy.__dict__)
 
+    def test_save(self):
+        """testing save method"""
+        self.cityy.save()
+        self.assertThat(self.cityy.created_at, not (self.cityy.updated_at))
+
     @classmethod
     def tearDown(self):
         """deletes self.cityy"""
