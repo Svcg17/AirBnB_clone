@@ -65,7 +65,7 @@ class TestAmenity(unittest.TestCase):
         """ test created_at and update_at as well """
         ok = Amenity()
         self.assertEqual(datetime, type(ok.created_at))
-        self.assertEqual(datetime, type(ok.created_at))
+        self.assertEqual(datetime, type(ok.updated_at))
 
     @classmethod
     def tearDownClass(self):
