@@ -27,6 +27,21 @@ class TestReview(unittest.TestCase):
         self.assertTrue('id' in self.Joe.__dict__)
         self.assertTrue('user_id' in self.Joe.__dict__)
 
+    def test_id(self):
+        """ test id is correct """
+        ok = Review()
+        var = Review(ok)
+        self.assertEqual(str, type(ok.id))
+        self.assertEqual(type(var), Review)
+
+    def test_attri(self):
+        """Do all required functions exist"""
+        self.assertTrue(hasattr(Review, "__str__"))
+        self.assertTrue(hasattr(Review, "to_dict"))
+        self.assertFalse(hasattr(Review, "name"))
+        self.assertTrue(hasattr(Review, "save"))
+        self.assertTrue(hasattr(Review, "__class__"))
+
     def test_string(self):
         """testing that it's a string"""
         ok = Review()
