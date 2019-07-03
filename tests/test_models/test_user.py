@@ -35,5 +35,9 @@ class test_user(unittest.TestCase):
         """tearing it down by deleting self.foo"""
         del self.foo
 
+    def test_not_none(self):
+        """testing save method"""
+        assertIsNotNone(self.foo)
+
 if __name__ == "__main__":
     unittest.main()

@@ -29,6 +29,11 @@ class test_state(unittest.TestCase):
         self.assertEqual(type(self.st.name), str)
         self.assertEqual(type(self.st.state_id), str)
 
+    def test_save(self):
+        """testing save method"""
+        self.st.save()
+        self.assertThat(self.st.created_at, not (self.st.updated_at))
+
     @classmethod
     def tearDownClass(self):
         """Tearing it all down by deletion"""

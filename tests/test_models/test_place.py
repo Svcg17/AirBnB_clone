@@ -56,6 +56,10 @@ class Place(BaseModel):
         self.pl.save()
         self.assertThat(self.pl.created_at, not (self.pl.updated_at))
 
+    def test_not_none(self):
+        """testing save method"""
+        assertIsNotNone(self.pl) 
+
     @classmethod
     def tearDown(self):
         """deletes place"""

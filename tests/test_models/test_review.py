@@ -41,6 +41,10 @@ class TestReview(unittest.TestCase):
         self.Joe.save()
         self.assertThat(self.Joe.created_at, not (self.Joe.updated_at))
 
+   def test_not_none(self):
+       """testing save method"""
+       assertIsNotNone(self.Joe)
+
     @classmethod
     def tearDownClass(self):
         """deletes self.Joe"""

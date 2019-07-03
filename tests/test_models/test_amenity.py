@@ -37,6 +37,10 @@ class Amenity(unittest.TestCase):
         self.mn.save()
         self.assertThat(self.mn.created_at, not (self.mn.updated_at))
 
+    def test_not_none(self):
+        """testing save method"""
+        assertIsNotNone(self.pl)
+
     @classmethod
     def tearDownClass(self):
         """Tearing it all down by deletion"""
