@@ -19,29 +19,8 @@ class FileStorage:
     Attributes:
         ...
     """
-    def __init__(self):
-        self.file_path = "file.json"
-        self.objects = {}
-
-    @property
-    def file_path(self):
-        """ file_path getter method
-        """
-        return self.__file_path
-
-    @file_path.setter
-    def file_path(self, file_path):
-        self.__file_path = file_path
-
-    @property
-    def objects(self):
-        """ objects getter method
-        """
-        return self.__objects
-
-    @objects.setter
-    def objects(self, objects):
-        self.__objects = objects
+    __file_path = "file.json"
+    __objects = {}
 
     def all(self):
         """ returns the dictionary __objects
@@ -74,3 +53,8 @@ class FileStorage:
                 content = json.load(f)
                 for k, v in content.items():
                     self.__objects[k] = eval(v['__class__'])(**v)
+
+    def reset_obj(self):
+        """Method that resets __objects attributes
+        """
+        self.__objects = {}
