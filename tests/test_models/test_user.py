@@ -3,6 +3,7 @@
 import unittest
 from models.user import User
 from models.base_model import BaseModel
+from datetime import datetime
 
 
 class test_user(unittest.TestCase):
@@ -34,10 +35,33 @@ class test_user(unittest.TestCase):
         ok = User()
         self.assertEqual(issubclass(type(ok), BaseModel), True)
 
+    def test_save(self):
+        """Test if is properly saved or not"""
+        ok = User()
+        ok.save()
+        self.assertNotEqual(ok.created_at, ok.updated_at)
+
     def test_id(self):
         """ test for valid id"""
         ok = User()
+        var = User(ok)
         self.assertEqual(str, type(ok.id))
+        self.assertEqual(type(var), User)
+
+    def test_created_at(self):
+        """ test created_at and update_at as well"""
+        ok = User()
+        self.assertEqual(datetime, type(ok.created_at))
+        self.assertEqual(datetime, type(ok.updated_at))
+
+    def test_existance(self):
+        """Do all required functions exist"""
+        ok = User()
+        self.assertTrue(hasattr(ok, "__str__"))
+        self.assertTrue(hasattr(ok, "to_dict"))
+        self.assertFalse(hasattr(ok, "name"))
+        self.assertTrue(hasattr(ok, "save"))
+        self.assertTrue(hasattr(ok, "__class__"))
 
     @classmethod
     def tearDown(self):

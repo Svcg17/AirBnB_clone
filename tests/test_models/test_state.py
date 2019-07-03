@@ -25,6 +25,13 @@ class test_state(unittest.TestCase):
         self.assertTrue(hasattr(State, "to_dict"))
         self.assertTrue(hasattr(State, "name"))
 
+    def test_id(self):
+        """ test id is correct """
+        ok = State()
+        var = State(ok)
+        self.assertEqual(str, type(ok.id))
+        self.assertEqual(type(var), State)
+
     def test_string(self):
         """test if State is a string"""
         ok = State()
@@ -40,6 +47,18 @@ class test_state(unittest.TestCase):
         """testing save method"""
         self.st.save()
         self.assertNotEqual(self.st.created_at, self.st.updated_at)
+
+    def test_to_dict(self):
+        """Test to_dict method"""
+        ok = State()
+        self.assertEqual(ok.__class__.__name__, "State")
+        self.assertTrue(ok.to_dict()["created_at"], str)
+        self.assertTrue(ok.to_dict()["updated_at"], str)
+
+    def test_instance(self):
+        """Test if instance of class works as intented"""
+        self.assertIsInstance(self.st, State)
+        self.assertIsInstance(self.st.name, str)
 
     @classmethod
     def tearDownClass(self):

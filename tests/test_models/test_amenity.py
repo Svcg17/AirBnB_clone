@@ -18,7 +18,7 @@ class TestAmenity(unittest.TestCase):
         self.amen2 = Amenity()
         self.amen2.name = "Parking"
 
-    def test_existence(self):
+    def test_existance(self):
         """Do all required functions exist"""
         self.assertTrue(hasattr(Amenity, "__str__"))
         self.assertTrue(hasattr(Amenity, "to_dict"))

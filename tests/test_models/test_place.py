@@ -53,6 +53,19 @@ class Place(BaseModel):
         """test to_dict function is working"""
         self.assertEqual('to_dict' in dir(self.pl), True)
 
+    def test_dict_to(self):
+        """ test if dictionary"""
+        ok = Place()
+        var = ok.to_dict()
+        foo = Place(var)
+        self.assertEqual(type(var), dict)
+        self.assertTrue(hasattr(foo, "__class__"))
+        self.assertTrue(hasattr(foo, "__str__"))
+        self.assertTrue(hasattr(foo, "to_dict"))
+        self.assertTrue(hasattr(foo, "name"))
+        self.assertTrue(hasattr(foo, "save"))
+        self.assertTrue(hasattr(foo, "__class__"))
+
     def test_save(self):
         """testing save method"""
         self.pl.save()
