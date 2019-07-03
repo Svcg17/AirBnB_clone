@@ -1,50 +1,77 @@
 #!/usr/bin/python3
-"""
-Unitesting amenity
+"""Unittest for Amenity
 """
 import unittest
-from models.amenity import Amenity
 from models.base_model import BaseModel
+from models.amenity import Amenity
+from datetime import datetime
 
 
-class Amenity(unittest.TestCase):
-    """
-    Unitesting Amenity class
-    """
+class TestAmenity(unittest.TestCase):
+    """Test for Amenity"""
+
     @classmethod
     def setUpClass(self):
-        """Setting it up"""
-        self.mn = Amenity()
-        self.mn.name = "Internet"
+        """Instances for testing on"""
+        self.amen1 = Amenity()
+        self.amen1.name = "Free Wi-Fi"
+        self.amen2 = Amenity()
+        self.amen2.name = "Parking"
 
-    def test_attr(self):
-        """test attributes of Amenity"""
-        self.assertTrue('name' in self.mn.__dict__)
-        self.assertTrue('id' in self.mn.__dict__)
-        self.assertTrue('created_at' in self.mn.__dict__)
-        self.assertTrue('updated_at' in self.mn.__dict__)
+    def test_existence(self):
+        """Do all required functions exist"""
+        self.assertTrue(hasattr(Amenity, "__str__"))
+        self.assertTrue(hasattr(Amenity, "to_dict"))
+        self.assertTrue(hasattr(Amenity, "name"))
+        self.assertTrue(hasattr(Amenity, "save"))
 
-    def test_to_dict(self):
-        """test if to_dict function works"""
-        self.assertEqual('to_dict' in dir(self.mn), True)
+    def test_docs(self):
+        """test that all is documented"""
+        self.assertTrue(Amenity.__doc__)
 
-    def test_string(self):
-        """test if Amenity is a string"""
-        self.assertEqual(type(self.mn.name), str)
+    def test_is_subclass(self):
+        """Tests to see if Amenity is a subclass of BaseModel"""
+        ok = Amenity()
+        self.assertEqual(issubclass(type(ok), BaseModel), True)
+
+    def test_instance(self):
+        """Test if instance of class works as intented"""
+        self.assertIsInstance(self.amen1, Amenity)
+        self.assertIsInstance(self.amen1.name, str)
+        self.assertIsInstance(self.amen2, Amenity)
+        self.assertIsInstance(self.amen2.name, str)
+
+    def test_compare(self):
+        """Test if instances are comprable"""
+        self.assertNotEqual(self.amen1, self.amen2)
 
     def test_save(self):
-        """testing save method"""
-        self.mn.save()
-        self.assertThat(self.mn.created_at, not (self.mn.updated_at))
+        """Test if is properly saved or not"""
+        self.amen1.save()
+        self.assertNotEqual(self.amen1.created_at, self.amen1.updated_at)
 
-    def test_not_none(self):
-        """testing save method"""
-        assertIsNotNone(self.pl)
+    def test_id(self):
+        """ test id is correct """
+        ok = Amenity()
+        self.assertEqual(str, type(ok.id))
+
+    def test_to_dict(self):
+        """Test to_dict method"""
+        self.assertEqual(self.amen1.__class__.__name__, "Amenity")
+        self.assertIsInstance(self.amen1.to_dict()["created_at"], str)
+        self.assertIsInstance(self.amen1.to_dict()["updated_at"], str)
+
+    def test_created_at(self):
+        """ test created_at and update_at as well """
+        ok = Amenity()
+        self.assertEqual(datetime, type(ok.created_at))
+        self.assertEqual(datetime, type(ok.created_at))
 
     @classmethod
     def tearDownClass(self):
-        """Tearing it all down by deletion"""
-        del self.mn
+        """Tears it all down by deleting instances"""
+        del self.amen1
+        del self.amen2
 
 if __name__ == "__main__":
     unittest.main()
