@@ -52,6 +52,13 @@ class Test_Base_Model(unittest.TestCase):
         json_model = b.to_dict()
         json_model = b.save()
 
+    def test_pass_to_dict_to_instance(self):
+        """Testing passing dict from to_dict function to instance
+        """
+        b = BaseModel()
+        dictionary = b.to_dict()
+        c = BaseModel(dictionary)
+
     def test_str_print(self):
         """Testing __str__ type
         """
@@ -98,6 +105,14 @@ class Test_Base_Model(unittest.TestCase):
             ins.to_dict({})
             ins.to_dict(124)
             ins.to_dictt(1234.4)
+
+    def two_instances(self):
+        """comparing two instances data
+        """
+        a = BaseModel()
+        b = BaseModel()
+        self.assertEqual(type(a), type(b))
+        self.assertEqual(a, b)
 
     def test_name_errors(self):
         """Testing for name errors
