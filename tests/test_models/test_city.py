@@ -15,6 +15,11 @@ class test_city(unittest.TestCase):
         self.cityy.name = "SF"
         self.cityy.state_id = "OR"
 
+    def type_instance(self):
+        """Testing type of instance
+        """
+        self.assertTrue(type(self.city), City)
+
     def test_city(self):
         """some tests for instance of city"""
         self.assertIsInstance(self.cityy, City)
@@ -58,11 +63,14 @@ class test_city(unittest.TestCase):
 
     def test_existance(self):
         """Do all required functions exist"""
-        self.assertTrue(hasattr(City, "__str__"))
-        self.assertTrue(hasattr(City, "to_dict"))
-        self.assertTrue(hasattr(City, "name"))
-        self.assertTrue(hasattr(City, "save"))
-        self.assertTrue(hasattr(City, "__class__"))
+        self.assertTrue(hasattr(self.cityy, "__str__"))
+        self.assertTrue(hasattr(self.cityy, "to_dict"))
+        self.assertTrue(hasattr(self.cityy, "name"))
+        self.assertTrue(hasattr(self.cityy, "save"))
+        self.assertTrue(hasattr(self.cityy, "state_id"))
+        self.assertTrue(hasattr(self.cityy, "__class__"))
+        self.assertTrue(type(self.cityy.name), str)
+        self.assertTrue(type(self.cityy.state_id), str)
 
     @classmethod
     def tearDown(self):

@@ -20,10 +20,10 @@ class test_state(unittest.TestCase):
 
     def test_self(self):
         """test attributes of State"""
-        self.assertTrue(hasattr(State, "__str__"))
-        self.assertTrue(hasattr(State, "save"))
-        self.assertTrue(hasattr(State, "to_dict"))
-        self.assertTrue(hasattr(State, "name"))
+        self.assertTrue(hasattr(self.st, "__str__"))
+        self.assertTrue(hasattr(self.st, "save"))
+        self.assertTrue(hasattr(self.st, "to_dict"))
+        self.assertTrue(hasattr(self.st, "name"))
 
     def test_id(self):
         """ test id is correct """
@@ -36,6 +36,8 @@ class test_state(unittest.TestCase):
         ok = State()
         self.assertEqual(type(ok.name), str)
         self.assertEqual(type(ok.id), str)
+        self.assertEqual(type(ok), State)
+        self.assertEqual(issubclass(type(ok), BaseModel), True)
 
     def test_creat_update(self):
         """test created at and updated at as well"""

@@ -18,13 +18,19 @@ class TestAmenity(unittest.TestCase):
         self.amen2 = Amenity()
         self.amen2.name = "Parking"
 
+    def test_type_instance(self):
+        """Test for type of instance
+        """
+        self.assertTrue(type(self.amen1), Amenity)
+
     def test_existance(self):
         """Do all required functions exist"""
-        self.assertTrue(hasattr(Amenity, "__str__"))
-        self.assertTrue(hasattr(Amenity, "to_dict"))
-        self.assertTrue(hasattr(Amenity, "name"))
-        self.assertTrue(hasattr(Amenity, "save"))
-        self.assertTrue(hasattr(Amenity, "__class__"))
+        self.assertTrue(hasattr(self.amen1, "__str__"))
+        self.assertTrue(hasattr(self.amen1, "to_dict"))
+        self.assertTrue(hasattr(self.amen1, "name"))
+        self.assertTrue(hasattr(self.amen1, "save"))
+        self.assertTrue(hasattr(self.amen1, "__class__"))
+        self.assertEqual(type(self.amen1.name), str)
 
     def test_docs(self):
         """test that all is documented"""
@@ -56,6 +62,7 @@ class TestAmenity(unittest.TestCase):
         ok = Amenity()
         self.assertEqual(str, type(ok.id))
         self.assertEqual(type(ok), Amenity)
+        self.assertEqual(type(ok.id), str)
 
     def test_to_dict(self):
         """Test to_dict method"""

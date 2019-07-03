@@ -8,7 +8,7 @@ from models.place import Place
 from datetime import datetime
 
 
-class Place(BaseModel):
+class Test_place(unittest.TestCase):
     """Place class"""
 
     @classmethod
@@ -16,9 +16,30 @@ class Place(BaseModel):
         """Setting up"""
         self.pl = Place()
 
+    def test_type(self):
+        """Testing for type of instance place
+        """
+        self.assertTrue(type(self.pl), Place)
+
+    def test_hasattr(self):
+        """Testing if isntance has attribute
+        """
+        self.assertTrue(hasattr(self.pl, "city_id"))
+        self.assertTrue(hasattr(self.pl, "user_id"))
+        self.assertTrue(hasattr(self.pl, "name"))
+        self.assertTrue(hasattr(self.pl, "description"))
+        self.assertTrue(hasattr(self.pl, "number_rooms"))
+        self.assertTrue(hasattr(self.pl, "number_bathrooms"))
+        self.assertTrue(hasattr(self.pl, "max_guest"))
+        self.assertTrue(hasattr(self.pl, "price_by_night"))
+        self.assertTrue(hasattr(self.pl, "latitude"))
+        self.assertTrue(hasattr(self.pl, "longitude"))
+        self.assertTrue(hasattr(self.pl, "amenity_ids"))
+
     def test_inst(self):
         """some tests for amenity"""
         ok = Place()
+        self.assertEqual(issubclass(type(ok), BaseModel), True)
         self.assertIsInstance(ok, Place)
         self.assertIsInstance(ok.city_id, str)
         self.assertIsInstance(ok.user_id, str)
@@ -31,23 +52,6 @@ class Place(BaseModel):
         self.assertIsInstance(ok.latitude, float)
         self.assertIsInstance(ok.longitude, float)
         self.assertIsInstance(ok.amenity_ids, list)
-
-    def test_has_attr(self):
-        """test for attributes"""
-        self.assertTrue('id' in self.pl.__dict__)
-        self.assertTrue('created_at' in self.pl.__dict__)
-        self.assertTrue('updated_at' in self.pl.__dict__)
-        self.assertTrue('city_id' in self.pl.__dict__)
-        self.assertTrue('user_id' in self.pl.__dict__)
-        self.assertTrue('name' in self.pl.__dict__)
-        self.assertTrue('description' in self.pl.__dict__)
-        self.assertTrue('number_rooms' in self.pl.__dict__)
-        self.assertTrue('number_bathrooms' in self.pl.__dict__)
-        self.assertTrue('max_guest' in self.pl.__dict__)
-        self.assertTrue('price_by_night' in self.pl.__dict__)
-        self.assertTrue('latitude' in self.pl.__dict__)
-        self.assertTrue('longitude' in self.pl.__dict__)
-        self.assertTrue('amenity_ids' in self.pl.__dict__)
 
     def test_to_dict(self):
         """test to_dict function is working"""
@@ -65,11 +69,6 @@ class Place(BaseModel):
         self.assertTrue(hasattr(foo, "name"))
         self.assertTrue(hasattr(foo, "save"))
         self.assertTrue(hasattr(foo, "__class__"))
-
-    def test_save(self):
-        """testing save method"""
-        self.pl.save()
-        self.assertThat(self.pl.created_at, not (self.pl.updated_at))
 
     def test_creat_and_update(self):
         """ test created_at and updated at the same time"""

@@ -60,6 +60,10 @@ class test_user(unittest.TestCase):
         self.assertTrue(hasattr(ok, "to_dict"))
         self.assertFalse(hasattr(ok, "name"))
         self.assertTrue(hasattr(ok, "save"))
+        self.assertTrue(hasattr(ok, "email"))
+        self.assertTrue(hasattr(ok, "password"))
+        self.assertTrue(hasattr(ok, "first_name"))
+        self.assertTrue(hasattr(ok, "last_name"))
         self.assertTrue(hasattr(ok, "__class__"))
 
     @classmethod
