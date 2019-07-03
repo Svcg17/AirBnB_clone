@@ -186,6 +186,9 @@ class HBNBCommand(cmd.Cmd):
         elif show_w == "show":
             param = argz[0] + " " + splitting[1]
             return self.do_show(param)
+        elif show_w == "destroy":
+            param_d = argz[0] + " " + splitting[1]
+            return self.do_destroy(param)
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
