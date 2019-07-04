@@ -39,16 +39,6 @@ class test_state(unittest.TestCase):
         self.assertEqual(type(ok), State)
         self.assertEqual(issubclass(type(ok), BaseModel), True)
 
-    def test_creat_update(self):
-        """test created at and updated at as well"""
-        ok = State()
-        self.assertEqual(datetime, type(ok.created_at))
-
-    def test_save(self):
-        """testing save method"""
-        self.st.save()
-        self.assertNotEqual(self.st.created_at, self.st.updated_at)
-
     def test_to_dict(self):
         """Test to_dict method"""
         ok = State()

@@ -16,11 +16,11 @@ class test_user(unittest.TestCase):
 
     def test_inst(self):
         """some tests for instance"""
-        self.assertIsInstance(self.foo, User)
-        self.assertIsInstance(self.foo.email, str)
-        self.assertIsInstance(self.foo.password, str)
-        self.assertIsInstance(self.foo.first_name, str)
-        self.assertIsInstance(self.foo.last_name, str)
+        self.assertTrue(type(self.foo), User)
+        self.assertTrue(type(self.foo.email), str)
+        self.assertTrue(type(self.foo.password), str)
+        self.assertTrue(type(self.foo.first_name), str)
+        self.assertTrue(type(self.foo.last_name), str)
 
     def test_to_dict(self):
         """testing to_dict method"""
@@ -58,7 +58,6 @@ class test_user(unittest.TestCase):
         ok = User()
         self.assertTrue(hasattr(ok, "__str__"))
         self.assertTrue(hasattr(ok, "to_dict"))
-        self.assertFalse(hasattr(ok, "name"))
         self.assertTrue(hasattr(ok, "save"))
         self.assertTrue(hasattr(ok, "email"))
         self.assertTrue(hasattr(ok, "password"))

@@ -22,9 +22,9 @@ class test_city(unittest.TestCase):
 
     def test_city(self):
         """some tests for instance of city"""
-        self.assertIsInstance(self.cityy, City)
-        self.assertIsInstance(self.cityy.state_id, str)
-        self.assertIsInstance(self.cityy.name, str)
+        self.assertTrue(type(self.cityy), City)
+        self.assertTrue(type(self.cityy.state_id), str)
+        self.assertTrue(type(self.cityy.name), str)
 
     def test_has_attr(self):
         """some tests for instance of city"""

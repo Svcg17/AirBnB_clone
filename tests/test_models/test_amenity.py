@@ -23,7 +23,7 @@ class TestAmenity(unittest.TestCase):
         """
         self.assertTrue(type(self.amen1), Amenity)
 
-    def test_existance(self):
+    def test_type(self):
         """Do all required functions exist"""
         self.assertTrue(hasattr(self.amen1, "__str__"))
         self.assertTrue(hasattr(self.amen1, "to_dict"))
@@ -31,10 +31,6 @@ class TestAmenity(unittest.TestCase):
         self.assertTrue(hasattr(self.amen1, "save"))
         self.assertTrue(hasattr(self.amen1, "__class__"))
         self.assertEqual(type(self.amen1.name), str)
-
-    def test_docs(self):
-        """test that all is documented"""
-        self.assertTrue(Amenity.__doc__)
 
     def test_is_subclass(self):
         """Tests to see if Amenity is a subclass of BaseModel"""
@@ -47,15 +43,6 @@ class TestAmenity(unittest.TestCase):
         self.assertIsInstance(self.amen1.name, str)
         self.assertIsInstance(self.amen2, Amenity)
         self.assertIsInstance(self.amen2.name, str)
-
-    def test_compare(self):
-        """Test if instances are comprable"""
-        self.assertNotEqual(self.amen1, self.amen2)
-
-    def test_save(self):
-        """Test if is properly saved or not"""
-        self.amen1.save()
-        self.assertNotEqual(self.amen1.created_at, self.amen1.updated_at)
 
     def test_id(self):
         """ test id is correct """
@@ -89,13 +76,6 @@ class TestAmenity(unittest.TestCase):
         self.assertTrue(hasattr(foo, "name"))
         self.assertTrue(hasattr(foo, "save"))
         self.assertTrue(hasattr(foo, "__class__"))
-
-    def test_prt_str(self):
-        """ test str output"""
-        ok = Amenity()
-        var = "[Amenity] ({}) {}".format(ok.id, ok.__dict__)
-        self.assertEqual(ok.__str__(), var)
-        self.assertEqual(type(var), str)
 
     @classmethod
     def tearDownClass(self):

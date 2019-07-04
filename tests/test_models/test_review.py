@@ -18,15 +18,6 @@ class TestReview(unittest.TestCase):
         self.Joe.user_id = "Decent"
         self.Joe.text = "Cloud"
 
-    def test_has_att(self):
-        """testing that attributes are true"""
-        self.assertTrue('created_at' in self.Joe.__dict__)
-        self.assertTrue('updated_at' in self.Joe.__dict__)
-        self.assertTrue('place_id' in self.Joe.__dict__)
-        self.assertTrue('text' in self.Joe.__dict__)
-        self.assertTrue('id' in self.Joe.__dict__)
-        self.assertTrue('user_id' in self.Joe.__dict__)
-
     def test_id(self):
         """ test id is correct """
         ok = Review()
@@ -60,20 +51,11 @@ class TestReview(unittest.TestCase):
         self.assertEqual(type(ok.user_id), str)
         self.assertEqual(type(ok.text), str)
 
-    def test_to_dict(self):
-        """testing that to_dict method functions"""
-        self.assertEqual('to_dict' in dir(self.Joe), True)
-
     def test_creat_update(self):
         """ test updated_at and updated_at """
         ok = Review()
         self.assertEqual(datetime, type(ok.created_at))
         self.assertEqual(datetime, type(ok.updated_at))
-
-    def test_save(self):
-        """testing save method"""
-        self.Joe.save()
-        self.assertNotEqual(self.Joe.created_at, self.Joe.updated_at)
 
     @classmethod
     def tearDownClass(self):
