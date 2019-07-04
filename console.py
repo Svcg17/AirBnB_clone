@@ -177,18 +177,18 @@ class HBNBCommand(cmd.Cmd):
         show_w = showw[:4]
         splitting = showw.split("\"")
         counter = 0
+        dest = argz[1][:7]
         if argz[1] == "all()":
             return self.do_all(argz[0])
         elif argz[1] == "count()":
             for i in models.storage.all():
                 counter += 1
-            print(counter)
         elif show_w == "show":
             param = argz[0] + " " + splitting[1]
             return self.do_show(param)
-        elif show_w == "destroy":
+        elif dest == "destroy":
             param_d = argz[0] + " " + splitting[1]
-            return self.do_destroy(param)
+            return self.do_destroy(param_d)
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
