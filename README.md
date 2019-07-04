@@ -1,6 +1,6 @@
 # 0x00. AirBnB clone - The console
 
-![alt text](https://holbertonintranet.s3.amazonaws.com/uploads/medias/2018/6/65f4a1dd9c51265f49d0.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIARDDGGGOUXW7JF5MT%2F20190703%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20190703T213441Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=86166bee0936a0ab30b5b39d4436be13794f7bf58d904460367f4d47e8fe7ecd)
+![alt text](https://i.kinja-img.com/gawker-media/image/upload/s--oqmQXcZx--/c_fill,fl_progressive,g_center,h_900,q_80,w_1600/n0uxpip8onijaufkntu9.jpg)
 ## Description
 What you should learn from this project:
 
