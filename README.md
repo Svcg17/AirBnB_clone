@@ -1,9 +1,16 @@
 # 0x00. AirBnB clone - The console
 
 ![alt text](https://i.kinja-img.com/gawker-media/image/upload/s--oqmQXcZx--/c_fill,fl_progressive,g_center,h_900,q_80,w_1600/n0uxpip8onijaufkntu9.jpg)
-## Description
-What you should learn from this project:
 
+### Description
+First step in the creation of an AirBnB  clone
+
+Building of the console:
+* Base data model
+* Command line interpreter
+* Storage Engine
+
+### Useful Concepts
 * How to create a Python package
 * How to create a command interpreter in Python using the cmd module
 * What is Unit testing and how to implement it in a large project
@@ -16,6 +23,50 @@ What you should learn from this project:
 * How to handle named arguments in a function
 
 ----------------------
+### Usage
+```
+$ ./console.py
+(hbnb) help
+
+Documented commands (type help <topic>):
+========================================
+EOF  all  count  create  destroy  help  quit  show  update
+
+(hbnb) 
+(hbnb) 
+(hbnb) quit
+$
+```
+And in non-interactive mode:
+```
+$ echo "help" | ./console.py
+(hbnb)
+Documented commands (type help <topic>):
+========================================
+EOF  all  count  create  destroy  help  quit  show  update
+
+(hbnb) $
+
+```
+### The command line interpreter (The Console)
+These are the command line commands:
+To run the console: `./console.py`
+
+| Command                                                      | Description                             |
+|:------------------------------------------------------------ |:---------------------------------------                       
+| `quit`                                                       | Quits the console                       |
+| `help`                                                       | Help documentation for command          |
+| `create <class>`                                             | create an object and print its id       |
+| `all` or `all <class>`                                       | shows all objects in stack              |
+| `show <class> <id>` or `<class>.show(<id>)`                  | show a specified object                 |
+| `destroy <class> <id>` or `<class>.destroy(<id>)`            | remove an object                        |
+| `update <class> <id> <attribute name> "<attribute value>"`   | update an attribute of an object        |
+
+### Storage Engine
+The storage type used for this project is file storage. We implement this in the file: `file_storage.py`
+Data flow:
+`<class 'BaseModel'> -> to_dict() -> <class 'dict'> -> JSON dump -> <class 'str'> -> FILE -> <class 'str'> -> JSON load -> <class 'dict'> -> <class 'BaseModel'>`
+      
 ### [1. Be PEP8 compliant!](./tests/)
 #### Write beautiful code that passes the PEP8 checks.
 
@@ -53,7 +104,7 @@ if __name__ == '__main__':
 ```
 <class 'BaseModel'> -> to_dict() -> <class 'dict'> -> <class 'BaseModel'>
 ```
-##### It’s great but it’s still not persistent: every time you launch the program you don’t restore all objects created before. So, you will convert the dictionary representation to a JSON string, with this format your BaseModel will be persistent.
+It’s great but it’s still not persistent: every time you launch the program you don’t restore all objects created before. So, you will convert the dictionary representation to a JSON string, with this format your BaseModel will be persistent.
 
 
 #### Now the flow of serialization-deserialization will be:
@@ -80,7 +131,7 @@ if __name__ == '__main__':
      * first_name: string - empty string
      * last_name: string - empty string
     
- ##### Update FileStorage to manage correctly serialization and deserialization of User.
+##### Update FileStorage to manage correctly serialization and deserialization of User.
 ##### Update your command interpreter (console.py) to allow show, create, destroy, update and all used with User.
 ### [9. More classes!](./console.py)
 ### Write all those classes that inherit from BaseModel:
@@ -117,6 +168,6 @@ if __name__ == '__main__':
 
 -----------------------
 
-## Author
+## Authors
 * **Sofia Cheung** - [Svcg17](https://github.com/Svcg17)
 * **Kenneth Mensah** - [Ken-Mens](https://github.com/Ken-Mens)
