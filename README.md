@@ -1,122 +1,92 @@
 # 0x00. AirBnB clone - The console
 
-![alt text](https://i.kinja-img.com/gawker-media/image/upload/s--oqmQXcZx--/c_fill,fl_progressive,g_center,h_900,q_80,w_1600/n0uxpip8onijaufkntu9.jpg)
-## Description
-What you should learn from this project:
+First step in the creation of an AirBnB clone: a command line interpreter to manage objects.
+The building of this console  includes:
+* A base data model
+* A command line interpreter
+* A storage engine (file storage)
 
-* How to create a Python package
-* How to create a command interpreter in Python using the cmd module
-* What is Unit testing and how to implement it in a large project
-* How to serialize and deserialize a Class
-* How to write and read a JSON file
-* How to manage datetime
-* What is an UUID
-* What is *args and how to use it
-* What is **kwargs and how to use it
-* How to handle named arguments in a function
+### Usage
+To execute the console
+```
+$ ./console.py
+(hbnb) help
 
-----------------------
-### [1. Be PEP8 compliant!](./tests/)
-#### Write beautiful code that passes the PEP8 checks.
+Documented commands (type help <topic>):
+========================================
+EOF  all  count  create  destroy  help  quit  show  update
+
+(hbnb) 
+(hbnb) 
+(hbnb) quit
+$
+```
+And in non-interactive mode:
+```
+$ echo "help" | ./console.py
+(hbnb)
+Documented commands (type help <topic>):
+========================================
+EOF  all  count  create  destroy  help  quit  show  update
+
+(hbnb) $
 
 ```
-pep8 *.py
-```
-### [2. Unittests](./models/base_model.py)
-#### All your files, classes, functions must be tested with unit tests
+### The command line interpreter (The Console)
+To use the following comands first execute the console by typing `./console` . Then type any of the commands bellow:
 
-#### Running Tests:
-The following block will help run the test by running the file through the command line.
-```
-if __name__ == '__main__':
-    unittest.main()
-```
+| Command                                                      | Description                                  |
+|:------------------------------------------------------------ |:---------------------------------------                       
+| `quit`                                                       | Quits the console                            |
+| `help` or `help <cmd>`                                       | shows documentation for any existing command |
+| `create <class>`                                             | creates an intannce, saves and prints its id |
+| `all` or `all <class>`                                       | shows all instances or specific ones         |
+| `show <class> <id>` or `<class>.show(<id>)`                  | show a specified object                      |
+| `destroy <class> <id>` or `<class>.destroy(<id>)`            | removes an object or instance                |
+| `update <class> <id> <attribute name> "<attribute value>"`   | updates an attribute with a new valu         |
 
-### [3. BaseModel](./models/base_model.py)
-#### Write a class BaseModel that defines all common attributes/methods for other classes
-* Public instance attributes:
-    * id: string - assign with an uuid when an instance is created:
-         * the goal is to have unique id for each BaseModel 
-    *    created_at: datetime - assign with the current datetime when an instance is created
-    * updated_at: datetime - assign with the current datetime when an instance is created and it will be updated every time you change your object
-* __str__: should print: [<class name>] (<self.id>) <self.__dict__>
+### The Base Model
+To see the file cd to models/base_model.py
+Defines all common methods and attributes of future classes and objects.
+Public instance attributes:
+- id: string: Generates a unique uuid when a BaseModel instance is created.
+- created_at: Contains date and time information of an instance when it is first created.
+- updated_at: Contains date and time information of an instance when it is updated.
+Methods:
+- __str__: prints: [<class name>] (<self.id>) <self.__dict__>
+Public instance methods:
+- save(self): updates the public instance attribute updated_at with the current datetime
+- to_dict(self): returns a dictionary containing all keys/values of __dict__ of the instance
 
-### [4. Create BaseModel from dictionary](./models/engine/file_storage.py)
-#### Previously we created a method to generate a dictionary representation of an instance (method to_dict()).
-##### Now it’s time to re-create an instance with this dictionary representation.
-```
-<class 'BaseModel'> -> to_dict() -> <class 'dict'> -> <class 'BaseModel'>
-```
+### File Storage
+Class that inherits from BaseModel class: to see file cd to models/engines/file_storage.py.
+The storage engine type used for this project is file storage with the use of serializatiton and deserialization processes to store objects. Implemented in: `file_storage.py`
+Data flow of the serialization to desearialization process:
+`<class 'BaseModel'> -> to_dict() -> <class 'dict'> -> JSON dump -> <class 'str'> -> FILE -> <class 'str'> -> JSON load -> <class 'dict'> -> <class 'BaseModel'>`
+Private class attributes:
+- __file_path: string path to the JSON file (ex: file.json)
+- __objects: dictionary will store all objects by <class name>.id (ex: to store a BaseModel object with id=12121212, the key will be BaseModel.12121212)
+Public instance methods:
+- all(self): returns the dictionary __objects
+- new(self, obj): sets in __objects the obj with key <obj class name>.id
+- save(self): serializes __objects to the JSON file (path: __file_path)
+- reload(self): deserializes the JSON file to __objects (only if the JSON file (__file_path) exists)
+ 
+### More Classes
+Additional classes that inherit from BaseModel:
 
-### [5. Store first object](./console.py)
-#### Now we can recreate a BaseModel from another one by using a dictionary representation:
-```
-<class 'BaseModel'> -> to_dict() -> <class 'dict'> -> <class 'BaseModel'>
-```
-##### It’s great but it’s still not persistent: every time you launch the program you don’t restore all objects created before. So, you will convert the dictionary representation to a JSON string, with this format your BaseModel will be persistent.
+Class Name | Attributes
+-- | --
+`User` | email, password, first_name, last_name
+`Amenity` | Name
+`Review` | place_id, user_id, text
+`State`  | Name
+`City` | state_id, name
+`Place` | city_id, user_id, name, description, number_bathrooms, max_guest, price_by_night, latitude, longitude, amenity_ids
 
+### About
+Created on Ubuntu 14.04 LTS. Using python3 version 3.4.3.
 
-#### Now the flow of serialization-deserialization will be:
-```
-<class 'BaseModel'> -> to_dict() -> <class 'dict'> -> JSON dump -> <class 'str'> -> FILE -> <class 'str'> -> JSON load -> <class 'dict'> -> <class 'BaseModel'>
-```
-### [6. Console 0.0.1](./console.py)
-#### Write a program called console.py that contains the entry point of the command interpreter:
-
-
-### [7. Console 0.1](./models/user.py)
-#### Update your command interpreter (console.py) to have these commands:
-
-* create: Creates a new instance of BaseModel, saves it (to the JSON file) and prints the id
-* show: Prints the string representation of an instance based on the class name and id
-* destroy: Deletes an instance based on the class name and id (save the change into the JSON file). 
-* all: Prints all string representation of all instances based or not on the class name.
-* update: Updates an instance based on the class name and id by adding or updating attribute (save the change into the JSON file).
-### [8. First User](./models/state.py)
-### Write a class User that inherits from BaseModel:
-   * Public class attributes:
-     * email: string - empty string
-     * password: string - empty string
-     * first_name: string - empty string
-     * last_name: string - empty string
-    
- ##### Update FileStorage to manage correctly serialization and deserialization of User.
-##### Update your command interpreter (console.py) to allow show, create, destroy, update and all used with User.
-### [9. More classes!](./console.py)
-### Write all those classes that inherit from BaseModel:
-
-* State
-    * Public class attributes:
-      * name: string - empty string 
-* City
-    * Public class attributes:
-      * state_id: string - empty string: it will be the State.id
-      * name: string - empty string
-* Amenity
-    * Public class attributes:
-      * name: string - empty string 
-* Place
-    * Public class attributes:
-      * city_id: string - empty string: it will be the City.id
-      * user_id: string - empty string: it will be the User.id
-      * name: string - empty string
-      * description: string - empty string
-      * number_rooms: integer - 0
-      * number_bathrooms: integer - 0
-      * max_guest: integer - 0
-      * price_by_night: integer - 0
-      * latitude: float - 0.0
-      * longitude: float - 0.0
-      * amenity_ids: list of string - empty list: it will be the list of Amenity.id later
-* Review
-    * Public class attributes:
-      *  place_id: string - empty string: it will be the Place.id
-      *  user_id: string - empty string: it will be the User.id
-      *  text: string - empty string
-
-
------------------------
-
-## Author
+### Authors
 * **Sofia Cheung** - [Svcg17](https://github.com/Svcg17)
 * **Kenneth Mensah** - [Ken-Mens](https://github.com/Ken-Mens)
