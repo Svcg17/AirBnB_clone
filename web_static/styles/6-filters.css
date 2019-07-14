@@ -36,17 +36,42 @@
 	-ms-transform: translateY(-50%);
   	transform: translateY(-50%);
  	padding-bottom: 7%;
+	margin-bottom: 0px;
 }
 
 .popover{
+	display: none;
+	margin-top: -18px;
+	margin-left: -51px;
+	padding-top: 20px;
+	padding-bottom: 40px;
 	background-color: #FAFAFA;
-	width: 25%;
+	position: relative;
 	border: 1px solid #DDDDDD;
 	border-radius: 4px;
-	display: none;
+	list-style-type: none;
+	padding-left: 27px;
 }
 
-.popover li:hover {
+.amenities .popover li{
+	margin-top: 12px;
+	padding-left: 25px;
+}
+
+.popover ul li{
+	list-style-type: none;
+}
+.locations .popover ul{
+	margin-top: 8px;
+	margin-left: -14px;
+}
+
+.locations:hover .popover{
+	display:block
+}
+
+
+.amenities:hover .popover{
 	display:block
 }
 
@@ -77,5 +102,4 @@ button {
 button:hover {
 	opacity: 0.9;
 }
-
 
