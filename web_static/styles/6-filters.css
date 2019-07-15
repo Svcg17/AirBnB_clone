@@ -51,6 +51,7 @@
 	border-radius: 4px;
 	list-style-type: none;
 	padding-left: 27px;
+	z-index: +1;
 }
 
 .amenities .popover li{
