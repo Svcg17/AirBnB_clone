@@ -1,6 +1,6 @@
 .filters {
-	position: relative;
 	background-color: white;
+	position: absolute;
 	height: 70px;
 	width: 100%;
 	border: 1px solid #DDDDDD;
