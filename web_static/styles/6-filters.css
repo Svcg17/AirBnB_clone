@@ -1,5 +1,5 @@
 .filters {
-	position: absolute;
+	position: relative;
 	background-color: white;
 	height: 70px;
 	width: 100%;
@@ -103,4 +103,3 @@ button {
 button:hover {
 	opacity: 0.9;
 }
-
