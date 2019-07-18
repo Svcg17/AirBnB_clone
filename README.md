@@ -1,5 +1,9 @@
 # 0x00. AirBnB clone - The console
 
+<p align="center">
+  <img src="https://i.imgur.com/ogbfW3k.png">
+</p>
+
 First step in the creation of an AirBnB clone: a command line interpreter to manage objects.
 The building of this console  includes:
 * A base data model
