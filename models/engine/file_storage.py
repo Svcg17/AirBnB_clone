@@ -17,10 +17,21 @@ class FileStorage:
     """ A FileStorage class
 
     Attributes:
-        ...
+        __file_path: path to the file storage
+        __objects: dictionary of class objects
     """
     __file_path = "file.json"
     __objects = {}
+
+    existing_cls = {
+            "BaseModel": BaseModel,
+            "User": User,
+            "Place": Place,
+            "City": City,
+            "Amenity": Amenity,
+            "Review": Review,
+            "State": State
+            }
 
     def all(self):
         """ returns the dictionary __objects
@@ -35,7 +46,7 @@ class FileStorage:
 
     def save(self):
         """serializes __objects to the JSON file (path: __file_pddath)
-       """
+        """
         newdict = {}
         for key in self.__objects:
             newdict[key] = self.__objects[key].to_dict()
@@ -52,7 +63,7 @@ class FileStorage:
             with open(self.__file_path, mode='r') as f:
                 content = json.load(f)
                 for k, v in content.items():
-                    self.__objects[k] = eval(v['__class__'])(**v)
+                    self.__objects[k] = self.existing_cls[(v['__class__'])](**v)
 
     def reset_obj(self):
         """Method that resets __objects attributes

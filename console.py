@@ -30,7 +30,8 @@ class HBNBCommand(cmd.Cmd):
             "City": City,
             "Amenity": Amenity,
             "Review": Review,
-            "State": State}
+            "State": State
+            }
 
     def emptyline(self):
         """ emptyline overwrite
@@ -53,16 +54,13 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, args=None):
         """Creates a new instance of BaseModel, saves
         it (to the JSON file) and prints the id"""
-        try:
-            newinstance = args.split()
-            if not args or len(newinstance) == 0:
-                print("** class name missing **")
-            else:
-                newinstance = eval(newinstance[0])()
-                newinstance.save()
-                print(newinstance.id)
-        except NameError:
-            print("** class doesn't exist **")
+        newinstance = args.split()
+        if not args or len(newinstance) == 0:
+            print("** class name missing **")
+        else:
+            newinstance = self.existing_cls[newinstance[0]]()
+            newinstance.save()
+            print(newinstance.id)
 
     def do_show(self, args=None):
         """Prints the string representation of an instance based
@@ -180,15 +178,13 @@ class HBNBCommand(cmd.Cmd):
         dest = argz[1][:7]
         if argz[1] == "all()":
             return self.do_all(argz[0])
-        elif argz[1] == "count()":
-            for i in models.storage.all():
-                counter += 1
         elif show_w == "show":
             param = argz[0] + " " + splitting[1]
             return self.do_show(param)
         elif dest == "destroy":
             param_d = argz[0] + " " + splitting[1]
             return self.do_destroy(param_d)
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
